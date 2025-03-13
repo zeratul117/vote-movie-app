@@ -1,11 +1,20 @@
-import { searchSingleMovie } from '@/movies'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Media } from '@/payload-types'
+import config from '@/payload.config'
+import { getPayload } from 'payload'
+const payloadConfig = await config
+
 
 export default async function Movie({ params }: { params: { id: number } }) {
     const { id } = await params
-    const movie = await searchSingleMovie(id)
+    const payload = await getPayload({ config: payloadConfig })
+    
+    const movie = await payload.findByID({
+        collection: 'movies',
+        id:  id
+      })
+
     if (!movie) {
         return notFound()
     } else {

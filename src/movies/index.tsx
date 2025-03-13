@@ -18,18 +18,6 @@ export async function searchMovies(query: string) {
   }))
 }
 
-export async function searchSingleMovie(movieId: number) {
-  const movie = await payload.findByID({
-    collection: 'movies',
-    id:  movieId
-  })
-  if (movie) {
-    return movie
-  }
-  return null;
-}
- 
-
 export async function addMovie(movieId: number) {
   const movieDataRequest = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`)
   const {title, poster_path, overview, tagline, genres: genreObjects } = await movieDataRequest.json()
