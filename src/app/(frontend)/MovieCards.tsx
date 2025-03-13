@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import React from 'react'
 import { Media, Movie } from '@/payload-types'
 import Image from 'next/image'
@@ -29,6 +29,7 @@ export default function MovieCards({movies: initialMovies}:  { movies: Movie[]})
                 <div key={movie.id} className="max-w-75 p-4 rounded-sm border borderColor">
                     <Link href={`/movie/${movie.id}`}>
                         <Image
+                        priority
                         src={(movie.poster as Media)?.url ?? ''}
                         alt={(movie.poster as Media)?.text ?? ''}
                         width={(movie.poster as Media)?.width ?? 100}

@@ -1,6 +1,6 @@
 import { Spin } from 'antd';
 
-export default async function Loading() {
+export default function Loading() {
 
   return (
     <div className="p-10">

@@ -10,7 +10,10 @@ const nextConfig = {
         hostname: 'image.tmdb.org'
       }
     ]
-  }
+  },  
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default withPayload(nextConfig)

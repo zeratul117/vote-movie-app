@@ -7,6 +7,19 @@ import { revalidatePath } from 'next/cache'
 const payloadConfig = await config
 const payload = await getPayload({ config: payloadConfig })
 
+export async function searchMovieById(movieId: number) {
+  const movies = await payload.find({
+    collection: 'movies',
+    where: {
+        id: { equals: movieId }
+    }
+  })
+  if (movies.docs.length > 0) {
+    return movies.docs[0]
+  }
+  return null
+}
+
 export async function searchMovies(query: string) {
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`)
   const data = await response.json();
@@ -41,7 +54,6 @@ export async function addMovie(movieId: number) {
     }
   })
 
-  console.log(doesMediaExist, 133233)
   if (doesMediaExist.docs.length == 0 && doesMovieExist.docs.length == 0) {
     const posterMedia = await payload.create({
       collection: 'media',
