@@ -6,7 +6,13 @@ import Image from 'next/image'
 import { addVotes } from '@/movies'
 import Link from 'next/link'
 
-export default function MovieCards({movies: initialMovies}:  { movies: Movie[]}) {
+export default function MovieCards({
+    movies: initialMovies,
+    onVote,
+  }: {
+    movies: Movie[]
+    onVote: () => void 
+  }) {
     const [movies, setMovies] = useState<Movie[]>(initialMovies)
     const [showMax, setShowMax] = useState<{ [key: number]: boolean }>({})
     const [loading, setLoading] = useState<{ [key: number]: boolean }>({})
@@ -20,6 +26,7 @@ export default function MovieCards({movies: initialMovies}:  { movies: Movie[]})
             setShowMax(prev => ({ ...prev, [movieId]: true }))
         }
         setLoading(prev => ({ ...prev, [movieId]: false }))
+        onVote()
         return updatedMovies;
     }
 

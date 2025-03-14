@@ -8,7 +8,7 @@ export default function Header() {
                 <FilmIcon />
             </Link>
             <Link href="/" className="text-xl font-bold">
-                <h2>Add and vote for your favorite movie!</h2>
+                <h2>Add and Vote for movies!</h2>
             </Link>
             <Link href="/add" className="text-xl font-light">
                 <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Add a Movie</span>

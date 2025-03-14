@@ -1,22 +1,34 @@
-import { getPayload } from 'payload'
-import React from 'react'
+'use client'
 
-import config from '@/payload.config'
-import './styles.css'
+import { useEffect, useState } from 'react'
 import MovieCards from './MovieCards'
+import { Movie } from '@/payload-types'
+import Loading from './loading'
 
-const payloadConfig = await config
-const payload = await getPayload({ config: payloadConfig })
+export default function Page() {
+  const [movies, setMovies] = useState<Movie[]>([])
+  const [version, setVersion] = useState(0)
 
-export default async function Page() {
-  const movies = await payload.find({
-    collection: 'movies',
-    sort: '-votes'
-  })
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch('/api/movies')
+        const data = await response.json()
+        setMovies(data.docs)
+      } catch (error) {
+        console.error('Error fetching movies:', error)
+      }
+    }
+    fetchMovies()
+  }, [version])
+
+  const handleVote = () => {
+    setVersion(prev => prev + 1) 
+  }
 
   return (
     <div className="p-6">
-      <MovieCards movies={movies.docs}/>
+      {movies.length > 0 ? <MovieCards movies={movies} onVote={handleVote} /> : <Loading />}
     </div>
   )
 }
