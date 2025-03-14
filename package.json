@@ -20,6 +20,7 @@
     "@payloadcms/db-postgres": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
+    "@payloadcms/plugin-cloud-storage": "^3.27.0",
     "@payloadcms/richtext-lexical": "latest",
     "@payloadcms/storage-vercel-blob": "^3.28.1",
     "@tailwindcss/postcss": "^4.0.12",
