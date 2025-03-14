@@ -8,6 +8,7 @@ import Loading from './loading'
 export default function Page() {
   const [movies, setMovies] = useState<Movie[]>([])
   const [version, setVersion] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -17,6 +18,8 @@ export default function Page() {
         setMovies(data.docs)
       } catch (error) {
         console.error('Error fetching movies:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
     fetchMovies()
@@ -28,7 +31,13 @@ export default function Page() {
 
   return (
     <div className="p-6">
-      {movies.length > 0 ? <MovieCards movies={movies} onVote={handleVote} /> : <Loading />}
+      {isLoading ? (
+        <Loading />
+      ) : movies.length > 0 ? (
+        <MovieCards movies={movies} onVote={handleVote} />
+      ) : (
+        null
+      )}
     </div>
   )
 }
